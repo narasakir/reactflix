@@ -12,10 +12,10 @@ import VideoSingle from './components/video-single'
 const App = () => (
   <Container>
     <Header>
-      <h1>Reactflix</h1>
+      <Logo>Reactflix</Logo>
     </Header>
     <Main>
-      <VideoSingle /> 
+      <VideoSingle />
       <VideosList />
     </Main>
     <Footer>
@@ -35,11 +35,17 @@ injectGlobal`
 const Container = styled.div`
 height: 100%
 `
-const Header = styled.header`
+const Logo = styled.h1`
   color: red;
+`
+const Header = styled.header`
   background: #333;
   height: ${headerHeight};
-  margin-bottom: 20px; 
+  margin-bottom: 10px; 
+  & ${Logo}{
+    font-size: 30px;
+    padding: 10px 15px;
+  }
 `
 
 const Main = styled.main`
