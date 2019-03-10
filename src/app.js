@@ -1,31 +1,40 @@
 'use strict'
 
-import React from 'react'
+import React, { PureComponent } from 'react'
 import styled, { injectGlobal } from 'styled-components'
+import { connect } from 'react-redux'
 
 import 'normalize.css'
 import 'milligram'
 
-import VideosList from './components/videos-list'
-import VideoSingle from './components/video-single'
+import { headerHeight, footerHeight } from 'utils/contants'
+import VideosList from './components/VideosList'
+import VideoSingle from './components/VideoSingle'
+import RegisterVideo from './components/RegisterVideo'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import { fetchVideos } from 'reducers/vides/action-creators'
 
-const App = () => (
-  <Container>
-    <Header>
-      <Logo>Reactflix</Logo>
-    </Header>
-    <Main>
-      <VideoSingle />
-      <VideosList />
-    </Main>
-    <Footer>
-      &copy; 2018
-    </Footer>
-  </Container>
-)
+class App extends PureComponent {
+  componentDidMount() {
+    this.props.fetchVideos();
+  }
 
-const headerHeight = '60px'
-const footerHeight = '30px'
+  render() {
+    const { isRegisterVideoFormOpened } = this.props;
+    return (
+      <Container>
+        <Header />
+        <Main>
+          {isRegisterVideoFormOpened && <RegisterVideo />}
+          <VideoSingle />
+          <VideosList />
+        </Main>
+        <Footer />
+      </Container>
+    )
+  }
+}
 
 injectGlobal`
   html, body, div[data-js="app"]{
@@ -33,27 +42,17 @@ injectGlobal`
   }
 `
 const Container = styled.div`
-height: 100%
-`
-const Logo = styled.h1`
-  color: red;
-`
-const Header = styled.header`
-  background: #333;
-  height: ${headerHeight};
-  margin-bottom: 10px; 
-  & ${Logo}{
-    font-size: 30px;
-    padding: 10px 15px;
-  }
+  height: 100%
 `
 
 const Main = styled.main`
   min-height:calc(100% - ${headerHeight} - ${footerHeight});
 `
+const mapStateToProps = (state) => ({
+  isRegisterVideoFormOpened: state.ui.isRegisterVideoFormOpened
+})
 
-const Footer = styled.footer`
-  height: ${footerHeight};
-  background: #333;
-`
-export default App
+const maoDispatchToProps = (dispatch) => ({
+  fetchVideos: () => dispatch(fetchVideos())
+})
+export default connect(mapStateToProps, maoDispatchToProps)(App)
