@@ -1,56 +1,53 @@
-import React from 'react'
-import styled from 'styled-components'
-import Play from '../play'
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { selectVideoSingle } from "reducers/video-single/action-creators";
+import VideoThumb from "../VideoThumb";
 
-const VideosList = () => (
+const VideosList = ({ videos, handleClick }) => (
   <Container>
-    {
-      Array.from({ length: 10 }).map((item, index) => (
-        <Video key={index}>
-          <VideoThumb>
-            <PlayStyled />
-          </VideoThumb>
-          <VideoTitle>Titulo do Video</VideoTitle>
-        </Video>
-      ))
-    }
+    {Object.keys(videos).map(id => (
+      <Video key={id}>
+        <VideoLink href="#" onClick={handleClick(id)}>
+          <VideoThumb id={id} />
+          <VideoTitle>{videos[id].title}</VideoTitle>
+        </VideoLink>
+      </Video>
+    ))}
   </Container>
-)
+);
 
-const PlayStyled = styled(Play)`
-  width: 50px;
-  height: 50px;
-  fill: #999;
-  transition: all 0.15s ease-in-out;
-`
-
-const Video = styled.section`
-  padding: 10px;    
-  :hover{
-      & ${PlayStyled}{
-        transform: scale(1.5)
-      }
-  }
-`
-
+const Video = styled.section`'
+  padding: 10px;
+`;
+const VideoLink = styled.a`
+  color: inherit;
+`;
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  & ${Video}{
+  & ${Video} {
     flex: 1 1 300px;
     margin: 0 5px;
   }
-`
+`;
 
-const VideoThumb = styled.div`\
-  border: 1px solid #999;
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
 const VideoTitle = styled.h2`
   font-size: 18px;
-`
+`;
 
-export default VideosList
+const mapStateToProps = state => ({
+  videos: state.videos
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleClick: id => e => {
+    e.preventDefault();
+    dispatch(selectVideoSingle(id));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VideosList);

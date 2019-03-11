@@ -7,13 +7,21 @@ export const addVideo = ({ id, title }) => ({
   payload: { id, title }
 })
 
-export const registerVideo = ({ id, title }) => async (dispatch) => {
-  await db.ref('videos').child(id).update({ id, title })
+export const registerVideo = ({ id, title }) => async dispatch => {
+  await db
+    .ref('videos')
+    .child(id)
+    .update({ id, title })
   dispatch(addVideo({ id, title }))
 }
 
-export const fetchVideos = () => (dispatch) => {
-  db.ref('videos').on('value', (snapshot) => {
-    console.log('snapshot', snapshot.val())
-  })
+export const fetchVideos = () =>  dispatch => {
+  db
+    .ref('videos')
+    .orderByChild('title')
+    .on('value', snapshot => {
+      snapshot.forEach(child => {
+        dispatch(addVideo(child.val()))
+      })
+    })
 }

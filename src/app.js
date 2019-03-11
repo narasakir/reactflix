@@ -13,21 +13,26 @@ import VideoSingle from './components/VideoSingle'
 import RegisterVideo from './components/RegisterVideo'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import { fetchVideos } from 'reducers/vides/action-creators'
+import { fetchVideos } from 'reducers/videos/action-creators'
 
 class App extends PureComponent {
-  componentDidMount() {
-    this.props.fetchVideos();
+  componentDidMount () {
+    this.props.fetchVideos()
   }
 
-  render() {
-    const { isRegisterVideoFormOpened } = this.props;
+  render () {
+    const { isRegisterVideoFormOpened, videoSingleId, videos } = this.props
     return (
       <Container>
         <Header />
         <Main>
           {isRegisterVideoFormOpened && <RegisterVideo />}
-          <VideoSingle />
+          {videoSingleId && (
+            <VideoSingle
+              id={videoSingleId}
+              title={videos[videoSingleId].title}
+            />
+          )}
           <VideosList />
         </Main>
         <Footer />
@@ -42,17 +47,22 @@ injectGlobal`
   }
 `
 const Container = styled.div`
-  height: 100%
+  height: 100%;
 `
 
 const Main = styled.main`
-  min-height:calc(100% - ${headerHeight} - ${footerHeight});
+  min-height: calc(100% - ${headerHeight} - ${footerHeight});
 `
-const mapStateToProps = (state) => ({
-  isRegisterVideoFormOpened: state.ui.isRegisterVideoFormOpened
+
+const mapStateToProps = state => ({
+  isRegisterVideoFormOpened: state.ui.isRegisterVideoFormOpened,
+  videoSingleId: state.videoSingle,
+  videos: state.videos
 })
 
-const maoDispatchToProps = (dispatch) => ({
-  fetchVideos: () => dispatch(fetchVideos())
-})
-export default connect(mapStateToProps, maoDispatchToProps)(App)
+const mapDispatchToProps = { fetchVideos }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
