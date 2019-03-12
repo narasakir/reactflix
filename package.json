@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "yarn dev",
-    "dev": "webpack-dashboard node server.js",
+    "dev": "webpack-dashboard -- node server.js",
     "test": "jest --coverage",
     "test:watch": "yarn test -- --watch",
     "lint": "standard --parser babel-eslint --verbose | snazzy",

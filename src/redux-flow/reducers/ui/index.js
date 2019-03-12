@@ -1,25 +1,21 @@
 'use strict'
 
 import createReducer from '../create-reducer'
-import * as action from './actions'
+import { OPEN_REGISTER_VIDEO, CLOSE_REGISTER_VIDEO } from './actions'
 
 const initialState = {
-  isRegisterVideoFormOpened: false,
-  isSingleVideoOpened: false
+  isRegisterVideoFormOpened: false
 }
 
 const ui = createReducer(initialState, {
-  [action.OPEN_REGISTER_VIDEO]: (state) => ({
+  [OPEN_REGISTER_VIDEO]: (state) => ({
     ...state,
     isRegisterVideoFormOpened: true
   }),
-  [action.CLOSE_REGISTER_VIDEO]: (state) => ({
+
+  [CLOSE_REGISTER_VIDEO]: (state) => ({
     ...state,
     isRegisterVideoFormOpened: false
-  }),
-  [action.CLOSE_SINGLE_VIDEO]: (state) => ({
-    ...state,
-    isSingleVideoOpened: false
   })
 })
 

@@ -1,6 +1,11 @@
 'use strict'
-import * as actions from './actions'
 
-export const openRegisterVideo = () => ({ type: actions.OPEN_REGISTER_VIDEO })
-export const closeRegisterVideo = () => ({ type: actions.CLOSE_REGISTER_VIDEO })
-export const closeSingleVideo = () => ({ type: actions.CLOSE_SINGLE_VIDEO })
+import { OPEN_REGISTER_VIDEO, CLOSE_REGISTER_VIDEO } from './actions'
+
+export const openRegisterVideo = () => ({
+  type: OPEN_REGISTER_VIDEO
+})
+
+export const closeRegisterVideo = () => ({
+  type: CLOSE_REGISTER_VIDEO
+})

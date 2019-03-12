@@ -1,8 +1,12 @@
+'use strict'
+
 import React from 'react'
 import styled from 'styled-components'
-import { footerHeight } from 'utils/contants'
+import { footerHeight } from 'utils/constants'
 
-const FooterMain = () => (<Footer> &copy; 2018 </Footer>)
+const MainFooter = () => (
+  <Footer>&copy; 2018</Footer>
+)
 
 const Footer = styled.footer`
   align-items: center;
@@ -13,4 +17,4 @@ const Footer = styled.footer`
   justify-content: center;
 `
 
-export default FooterMain
+export default MainFooter

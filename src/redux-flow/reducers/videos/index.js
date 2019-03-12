@@ -1,12 +1,12 @@
 'use strict'
 
 import createReducer from '../create-reducer'
-import * as action from './actions'
+import { ADD_VIDEO } from './actions'
 
 const initialState = {}
 
 const videos = createReducer(initialState, {
-  [action.ADD_VIDEO]: (state, action) => ({
+  [ADD_VIDEO]: (state, action) => ({
     ...state,
     [action.payload.id]: {
       id: action.payload.id,
