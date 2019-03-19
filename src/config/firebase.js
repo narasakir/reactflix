@@ -3,14 +3,14 @@
 import firebase from 'firebase'
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyAtH-ZxL3MNezXnxzr3JrQCSH2yHec6rpc',
-  authDomain: 'reactflix-d9409.firebaseapp.com',
-  databaseURL: 'https://reactflix-d9409.firebaseio.com',
-  projectId: 'reactflix-d9409',
-  storageBucket: 'reactflix-d9409.appspot.com',
-  messagingSenderId: '443088599786'
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID
 })
 
 const db = firebase.database()
 
-export { db }
+export { db, firebase }
