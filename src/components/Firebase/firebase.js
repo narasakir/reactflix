@@ -103,6 +103,16 @@ class Firebase {
   message = uid => this.db.ref(`messages/${uid}`);
 
   messages = () => this.db.ref('messages');
+
+  // ***Videos API ***
+
+  fetchVideos = () => this.db.ref('videos').on('value', (snapshot) => {
+    const videos = snapshot.val()
+    Object.keys(videos)
+      .sort((a, b) => videos[a].title < videos[b].title ? -1 : 1)
+  })
+
+  registerVideo = (id, title) => this.db.ref('videos').child(id).update({ id, title })
 }
 
 export default Firebase;

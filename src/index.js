@@ -5,9 +5,11 @@ import { Provider } from 'react-redux';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-import store from './store';
+import configureStore from './store';
 import App from './components/App';
 import Firebase, { FirebaseContext } from './components/Firebase';
+
+const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>

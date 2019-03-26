@@ -64,7 +64,7 @@ class LoginManagementBase extends Component {
       .then(this.fetchSignInMethods)
       .catch(error => this.setState({ error }));
   };
-
+  activeSignInMethods
   onDefaultLoginLink = password => {
     const credential = this.props.firebase.emailAuthProvider.credential(
       this.props.authUser.email,
